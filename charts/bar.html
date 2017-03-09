@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title></title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+          
+    <!-- FONT ––––––––––––––––––––––––––––––––––––––––––––––––––-->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://con2.intwixt.com:3017/static1/webviews/js/router_client.js"></script>
+	<style>
+		body {
+			position:absolute;
+			height:100%;
+			width:100%;
+		}
+		.ct-chart {
+			position:absolute;
+			height:80%;
+			top:10%;
+			width:90%;
+		}
+		.container .ct-series-a .ct-area, .ct-series-a .ct-slice-pie {
+    		fill: #738b85;
+		}
+		.container .ct-series-b .ct-area, .ct-series-b .ct-slice-pie {
+    		fill: #475c65;
+		}
+		.container .ct-series-c .ct-area, .ct-series-c .ct-slice-pie {
+    		fill: #10465a;
+		}
+		.container .ct-series-d .ct-area, .ct-series-d .ct-slice-pie {
+    		fill: #0d3442;
+		}
+		.container .ct-series-e .ct-area, .ct-series-e .ct-slice-pie {
+    		fill: #1f1e29;
+		}
+		.container .ct-series-a .ct-bar {
+    		stroke: #738b85;
+		}
+		.container .ct-series-b .ct-bar {
+    		stroke: #475c65;
+		}
+		.container .ct-series-c .ct-bar {
+    		stroke: #10465a;
+		}
+		.container .ct-series-d .ct-bar {
+    		stroke: #0d3442;
+		}
+		.container .ct-series-e .ct-bar {
+    		stroke: #1f1e29;
+		}
+	</style>
+</head>
+<body class="container">
+  	<div class="ct-chart"></div>
+	<script>
+	
+	var sample_data = {
+		data: {
+		  labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+		  series: [
+			[800000, 1200000, 1400000, 1300000],
+			[200000, 400000, 500000, 300000],
+			[100000, 200000, 400000, 600000]
+		  ]
+		}
+	};
+	
+	function on_data(data) {
+	
+		new Chartist.Bar('.ct-chart', data.data, {
+		  stackBars: true,
+		  axisY: {
+			labelInterpolationFnc: function(value) {
+			  return (value / 1000) + 'k';
+			}
+		  }
+		}).on('draw', function(data) {
+		  if(data.type === 'bar') {
+			data.element.attr({
+			  style: 'stroke-width: 30px'
+			});
+		  }
+		});
+
+	}
+	
+	var router = Intwixt.newRouterClient(on_data, sample_data);
+
+      </script>
+  </body>
+</html>
+

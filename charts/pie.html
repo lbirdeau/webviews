@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>Pie Chart Web View</title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+          
+    <!-- FONT ––––––––––––––––––––––––––––––––––––––––––––––––––-->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://con2.intwixt.com:3017/static1/webviews/js/router_client.js"></script>
+	<style>
+		body {
+			position:absolute;
+			height:100%;
+			width:100%;
+		}
+		.ct-chart {
+			position:absolute;
+			height:80%;
+			top:10%;
+			width:90%;
+		}
+		.container .ct-series-a .ct-area, .ct-series-a .ct-slice-pie {
+    		fill: #738b85;
+		}
+		.container .ct-series-b .ct-area, .ct-series-b .ct-slice-pie {
+    		fill: #475c65;
+		}
+		.container .ct-series-c .ct-area, .ct-series-c .ct-slice-pie {
+    		fill: #10465a;
+		}
+		.container .ct-series-d .ct-area, .ct-series-d .ct-slice-pie {
+    		fill: #0d3442;
+		}
+		.container .ct-series-e .ct-area, .ct-series-e .ct-slice-pie {
+    		fill: #1f1e29;
+		}
+		.container .ct-label {
+    		fill: #c0c0c0;
+    		font-size: 2em;
+		}
+	</style>
+</head>
+<body class="container">
+  	<div class="ct-chart"></div>
+	<script>
+	
+		var sample_data = {
+			data: {
+			  series: [5, 3, 4]
+			}
+		};
+	
+		function on_data(data) {
+	
+			var data = data.data;
+
+			var sum = function(a, b) { return a + b };
+
+			new Chartist.Pie('.ct-chart', data, {
+			  labelInterpolationFnc: function(value) {
+				return Math.round(value / data.series.reduce(sum) * 100) + '%';
+			  }
+			});
+		}
+	
+		var router = Intwixt.newRouterClient(on_data, sample_data);
+
+	</script>
+</body>
+</html>
+
